@@ -33,7 +33,11 @@ const reset = () => {
 }
 
 const backSpace = () => {
-    if ( operationArray[1] ) operationArray.pop()
+    if ( operationArray[1] ) {
+        operationArray.pop()
+        currentNumber = screen.textContent
+        return
+    }
     if ( currentNumber.length === 1 ) {
         currentNumber = '0'
         screen.textContent = currentNumber
