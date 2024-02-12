@@ -7,6 +7,18 @@ const buttonDelete = document.querySelector('#delete')
 const screen = document.querySelector('#screen')
 screen.textContent = currentNumber
 
+const isFloat = n => n % 1 !== 0
+
+const fixFloat = (numberFirst, numberSecond, operation) => {
+    const a = numberFirst.toString().length
+    const b = numberSecond.toString().length
+    const n = a > b ? a : b
+
+    if ( operation === 'add' ) return parseFloat((numberFirst + numberSecond).toFixed(n - 2))
+    else if ( operation === 'subtract') return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
+    else return parseFloat((numberFirst * numberSecond).toFixed(a + b))
+}
+
 const operate = (operationArray) => {
     const numberFirst = operationArray[0]
     const numberSecond = operationArray[2]
@@ -15,13 +27,25 @@ const operate = (operationArray) => {
 
     switch (operation) {
         case 'add':
-            result = numberFirst + numberSecond
+            if( isFloat(numberFirst) || isFloat(numberSecond) ) {
+                result = fixFloat(numberFirst, numberSecond, 'add')
+            } else {
+                result = (numberFirst + numberSecond)
+            }
             break
         case 'subtract':
-            result = numberFirst - numberSecond
+            if( isFloat(numberFirst) || isFloat(numberSecond) ) {
+                result = fixFloat(numberFirst, numberSecond, 'subtract')
+            } else {
+                result = (numberFirst - numberSecond)
+            }
             break
         case 'multiply':
-            result = numberFirst * numberSecond
+            if( isFloat(numberFirst) || isFloat(numberSecond) ) {
+                result = fixFloat(numberFirst, numberSecond, 'multiply')
+            } else {
+                result = (numberFirst * numberSecond)
+            }
             break
         case 'divide':
             if ( numberSecond === 0 ) {
