@@ -11,7 +11,7 @@
 }
 
 body {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
 }
 
 button {
@@ -31,6 +31,7 @@ button {
     padding: 10px 20px;
     margin-bottom: 20px;
     text-align: right;
+    font-family: monospace;
 }
 
 #keyboard {
