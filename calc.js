@@ -1,3 +1,9 @@
+const add = 'add'
+const subtract = 'subtract'
+const multiply = 'multiply'
+const divide = 'divide'
+const equal = 'equal'
+
 let currentNumber = '0'
 const operationArray = [0]
 const buttonNumber = document.querySelectorAll('#numbers button')
@@ -14,9 +20,42 @@ const fixFloat = (numberFirst, numberSecond, operation) => {
     const b = numberSecond.toString().length
     const n = a > b ? a : b
 
-    if ( operation === 'add' ) return parseFloat((numberFirst + numberSecond).toFixed(n - 2))
-    else if ( operation === 'subtract' ) return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
+    if ( operation === add ) return parseFloat((numberFirst + numberSecond).toFixed(n - 2))
+    else if ( operation === subtract ) return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
     else return parseFloat((numberFirst * numberSecond).toFixed(a + b))
+}
+
+const reset = () => {
+    currentNumber = '0'
+    screen.textContent = currentNumber
+    operationArray[0] = 0
+    if ( operationArray[1] ) operationArray.pop()
+}
+
+const backSpace = () => {
+    if ( operationArray[1] ) operationArray.pop()
+    if ( currentNumber.length === 1 ) {
+        currentNumber = '0'
+        screen.textContent = currentNumber
+    } else {
+        currentNumber = currentNumber.slice(0, -1)
+        screen.textContent = currentNumber
+    }
+}
+
+const operationTrigger = operation => {
+    if ( operationArray.length === 1 ) {
+        operationArray[0] = parseFloat(currentNumber)
+        operationArray.push(operation)
+        currentNumber = '0'
+    } else {
+        operationArray.push(parseFloat(currentNumber))
+        operationArray[0] = operate(operationArray)
+        screen.textContent = operationArray[0]
+        operationArray[1] = operation
+        operationArray.pop()
+        currentNumber = '0'
+    }
 }
 
 const operate = (operationArray) => {
@@ -26,28 +65,28 @@ const operate = (operationArray) => {
     let result
 
     switch ( operation ) {
-        case 'add':
+        case add:
             if( isFloat(numberFirst) || isFloat(numberSecond) ) {
-                result = fixFloat(numberFirst, numberSecond, 'add')
+                result = fixFloat(numberFirst, numberSecond, add)
             } else {
                 result = (numberFirst + numberSecond)
             }
             break
-        case 'subtract':
+        case subtract:
             if( isFloat(numberFirst) || isFloat(numberSecond) ) {
-                result = fixFloat(numberFirst, numberSecond, 'subtract')
+                result = fixFloat(numberFirst, numberSecond, subtract)
             } else {
                 result = (numberFirst - numberSecond)
             }
             break
-        case 'multiply':
+        case multiply:
             if( isFloat(numberFirst) || isFloat(numberSecond) ) {
-                result = fixFloat(numberFirst, numberSecond, 'multiply')
+                result = fixFloat(numberFirst, numberSecond, multiply)
             } else {
                 result = (numberFirst * numberSecond)
             }
             break
-        case 'divide':
+        case divide:
             if ( numberSecond === 0 ) {
                 alert('You have found the infinity! Start over your calculations.')
                 result = 0
@@ -56,7 +95,7 @@ const operate = (operationArray) => {
             }
             result = numberFirst / numberSecond
             break
-        case 'equal':
+        case equal:
             result = numberFirst
         default:
             break
@@ -66,11 +105,11 @@ const operate = (operationArray) => {
 }
 
 const assignNumber = (n) => {
-    if ( operationArray[1] === 'equal' ) {
+    if ( operationArray[1] === equal ) {
         operationArray[0] = parseFloat(n)
     }
 
-    if ( currentNumber > Number.MAX_SAFE_INTEGER ) return currentNumber
+    if ( currentNumber.length === Number.MAX_SAFE_INTEGER.toString().length ) return currentNumber
 
     if ( currentNumber === '0' ) {
         currentNumber = n
@@ -90,34 +129,56 @@ buttonNumber.forEach(btn => btn.addEventListener('click', () => {
 }))
 
 buttonOperate.forEach(btn => btn.addEventListener('click', () => {
-    if ( operationArray.length === 1 ) {
-        operationArray[0] = parseFloat(currentNumber)
-        operationArray.push(btn.id)
-        currentNumber = '0'
-    } else {
-        operationArray.push(parseFloat(currentNumber))
-        operationArray[0] = operate(operationArray)
-        screen.textContent = operationArray[0]
-        operationArray[1] = btn.id
-        operationArray.pop()
-        currentNumber = '0'
-    }
+    operationTrigger(btn.id)
 }))
 
 buttonEscape.addEventListener('click', () => {
-    currentNumber = '0'
-    screen.textContent = currentNumber
-    operationArray[0] = 0
-    if ( operationArray[1] ) operationArray.pop()
+    reset()
 })
 
 buttonDelete.addEventListener('click', () => {
-    if ( operationArray[1] ) operationArray.pop()
-    if ( currentNumber.length === 1 ) {
-        currentNumber = '0'
-        screen.textContent = currentNumber
-    } else {
-        currentNumber = currentNumber.slice(0, -1)
-        screen.textContent = currentNumber
-    }
+    backSpace()
 })
+
+document.onkeyup = e => {
+    switch ( e.key ) {
+        case '1': 
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+        case '.':
+            screen.textContent = assignNumber(e.key)
+            break
+        case '+':
+            operationTrigger(add)
+            break
+        case '-':
+            operationTrigger(subtract)
+            break
+        case '*':
+            operationTrigger(multiply)
+            break
+        case '/':
+            operationTrigger(divide)
+            break
+        case '=':
+        case 'Enter':
+            operationTrigger(equal)
+            break
+        case 'c':
+        case 'Escape':
+            reset()
+            break
+        case 'Backspace':
+            backSpace()
+            break
+        default:
+            break
+    }
+}
