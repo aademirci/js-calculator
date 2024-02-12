@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+body {
+    font-size: 2.6rem;
+}
+
+button {
+    height: 50px;
+    font-size: large;
+}
+
+#calculator {
+    width: 33%;
+    background-color: red;
+    padding: 20px;
+}
+
+#screen {
+    font-size: larger;
+    border: 1px solid black;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#keyboard {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 4fr;
+    column-gap: 6px;
+}
+
+#controls {
+    display: flex;
+    gap: 6px;
+}
+
+#delete {
+    flex: 2;
+}
+
+#numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+#numbers button, #escape {
+    width: calc(33.33% - 4px);
+}
+
+.zero {
+    flex: 2;
+    order: 1;
+}
+
+#operations {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: span 2;
+    display: grid;
+    gap: 6px;
+}
