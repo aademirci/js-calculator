@@ -15,7 +15,7 @@ const fixFloat = (numberFirst, numberSecond, operation) => {
     const n = a > b ? a : b
 
     if ( operation === 'add' ) return parseFloat((numberFirst + numberSecond).toFixed(n - 2))
-    else if ( operation === 'subtract') return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
+    else if ( operation === 'subtract' ) return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
     else return parseFloat((numberFirst * numberSecond).toFixed(a + b))
 }
 
@@ -25,7 +25,7 @@ const operate = (operationArray) => {
     const operation = operationArray[1]
     let result
 
-    switch (operation) {
+    switch ( operation ) {
         case 'add':
             if( isFloat(numberFirst) || isFloat(numberSecond) ) {
                 result = fixFloat(numberFirst, numberSecond, 'add')
@@ -70,6 +70,8 @@ const assignNumber = (n) => {
         operationArray[0] = parseFloat(n)
     }
 
+    if ( currentNumber > Number.MAX_SAFE_INTEGER ) return currentNumber
+
     if ( currentNumber === '0' ) {
         currentNumber = n
     } else if ( n === '.' && currentNumber.includes('.')) {
@@ -110,8 +112,8 @@ buttonEscape.addEventListener('click', () => {
 })
 
 buttonDelete.addEventListener('click', () => {
-    if (operationArray[1]) operationArray.pop()
-    if (currentNumber.length === 1) {
+    if ( operationArray[1] ) operationArray.pop()
+    if ( currentNumber.length === 1 ) {
         currentNumber = '0'
         screen.textContent = currentNumber
     } else {
