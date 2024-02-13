@@ -8,6 +8,7 @@ let currentNumber = '0'
 const operationArray = [0]
 const buttonNumber = document.querySelectorAll('#numbers button')
 const buttonOperate = document.querySelectorAll('#operations button')
+const buttonEqual = document.querySelector('#equal')
 const buttonEscape = document.querySelector('#escape')
 const buttonDelete = document.querySelector('#delete')
 const screen = document.querySelector('#screen')
@@ -29,37 +30,50 @@ const reset = () => {
     currentNumber = '0'
     screen.textContent = currentNumber
     operationArray[0] = 0
-    if ( operationArray[1] ) operationArray.pop()
+    if ( operationArray[1] ) {
+        operationArray.pop()
+        buttonOperate.forEach(btn => {
+            btn.classList.remove('active')
+        })
+    }
 }
 
 const backSpace = () => {
     if ( operationArray[1] ) {
         operationArray.pop()
+        buttonOperate.forEach(btn => {
+            btn.classList.remove('active')
+        })
         currentNumber = screen.textContent
         return
     }
+    
     if ( currentNumber.length === 1 ) {
         currentNumber = '0'
-        screen.textContent = currentNumber
     } else {
         currentNumber = currentNumber.slice(0, -1)
-        screen.textContent = currentNumber
     }
+    screen.textContent = currentNumber
 }
 
 const operationTrigger = operation => {
     if ( operationArray.length === 1 ) {
         operationArray[0] = parseFloat(currentNumber)
         operationArray.push(operation)
-        currentNumber = '0'
     } else {
         operationArray.push(parseFloat(currentNumber))
         operationArray[0] = operate(operationArray)
         screen.textContent = operationArray[0]
         operationArray[1] = operation
+        buttonOperate.forEach(btn => {
+            btn.classList.remove('active')
+        })
         operationArray.pop()
-        currentNumber = '0'
     }
+    operation !== equal && buttonOperate.forEach(btn => {
+        btn.id === operation && btn.classList.add('active')
+    })
+    currentNumber = '0'
 }
 
 const operate = (operationArray) => {
@@ -158,6 +172,12 @@ document.onkeyup = e => {
         case '0':
         case '.':
             screen.textContent = assignNumber(e.key)
+            buttonNumber.forEach(btn => {
+                btn.textContent === e.key && btn.classList.add('active')
+                setInterval(() => {
+                    btn.classList.remove('active')
+                }, 100)
+            })
             break
         case '+':
             operationTrigger(add)
@@ -174,13 +194,25 @@ document.onkeyup = e => {
         case '=':
         case 'Enter':
             operationTrigger(equal)
+            buttonEqual.classList.add('active')
+            setInterval(() => {
+                buttonEqual.classList.remove('active')
+            }, 100)
             break
         case 'c':
         case 'Escape':
             reset()
+            buttonEscape.classList.add('active')
+            setInterval(() => {
+                buttonEscape.classList.remove('active')
+            }, 100)
             break
         case 'Backspace':
             backSpace()
+            buttonDelete.classList.add('active')
+            setInterval(() => {
+                buttonDelete.classList.remove('active')
+            }, 100)
             break
         default:
             break

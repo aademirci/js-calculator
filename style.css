@@ -12,17 +12,40 @@
 
 body {
     font-size: 2.2rem;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 button {
     height: 50px;
-    font-size: large;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+button:active, .active {
+    border-style: inset;
+    opacity: .9;
 }
 
 #calculator {
     width: 33%;
-    background-color: red;
+    background-color: hsl(0, 0%, 10%);
     padding: 20px;
+    border-radius: 10px;
+    margin-inline: auto;
+    box-shadow: 0 0 200px 2px hsl(39, 100%, 50%);
+}
+
+#brand {
+    color: hsl(0, 0%, 80%);
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    margin-bottom: 50px;
 }
 
 #screen {
@@ -32,6 +55,9 @@ button {
     margin-bottom: 20px;
     text-align: right;
     font-family: monospace;
+    border-radius: 3px;
+    border-color: hsl(0, 0%, 80%);
+    color: hsl(0, 0%, 100%);
 }
 
 #keyboard {
@@ -46,6 +72,16 @@ button {
     gap: 6px;
 }
 
+#controls button {
+    border-color: hsl(0, 0%, 30%);
+    background-color: hsl(0, 0%, 20%);
+    color: hsl(0, 0%, 100%);
+}
+
+#controls button:hover {
+    background-color: hsl(0, 0%, 15%);
+}
+
 #delete {
     flex: 2;
 }
@@ -56,6 +92,16 @@ button {
     gap: 6px;
     align-content: flex-end;
     flex-direction: row-reverse;
+}
+
+#numbers button {
+    border-color: hsl(0, 0%, 50%);
+    background-color: hsl(0, 0%, 40%);
+    color: hsl(0, 0%, 100%);
+}
+
+#numbers button:hover {
+    background-color: hsl(0, 0%, 35%);
 }
 
 #numbers button, #escape {
@@ -73,4 +119,14 @@ button {
     grid-row-end: span 2;
     display: grid;
     gap: 6px;
+}
+
+#operations button {
+    border-color: hsl(39, 100%, 60%);
+    background-color: hsl(39, 100%, 50%);
+    color: hsl(0, 0%, 100%);
+}
+
+#operations button:hover {
+    background-color: hsl(39, 100%, 45%);
 }
