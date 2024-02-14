@@ -5,6 +5,7 @@ const divide = 'divide'
 const equal = 'equal'
 
 let currentNumber = '0'
+let nextNumber = '0'
 const operationArray = [0]
 const buttonNumber = document.querySelectorAll('#numbers button')
 const buttonOperate = document.querySelectorAll('#operations button')
@@ -115,6 +116,8 @@ const operate = (operationArray) => {
             break
         case equal:
             result = numberFirst
+            nextNumber = '0'
+            break
         default:
             break
     }
@@ -124,7 +127,8 @@ const operate = (operationArray) => {
 
 const assignNumber = (n) => {
     if ( operationArray[1] === equal ) {
-        operationArray[0] = parseFloat(n)
+        nextNumber = nextNumber + n
+        operationArray[0] = parseFloat(nextNumber)
     }
 
     if ( currentNumber.length === Number.MAX_SAFE_INTEGER.toString().length ) return currentNumber
@@ -144,10 +148,12 @@ const assignNumber = (n) => {
 
 buttonNumber.forEach(btn => btn.addEventListener('click', () => {
     screen.textContent = assignNumber(btn.textContent)
+    console.log(...operationArray)
 }))
 
 buttonOperate.forEach(btn => btn.addEventListener('click', () => {
     operationTrigger(btn.id)
+    console.log(...operationArray)
 }))
 
 buttonEscape.addEventListener('click', () => {
