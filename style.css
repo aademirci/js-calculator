@@ -169,3 +169,9 @@ button:active, .active {
         width: 720px;
     }
 }
+
+@media screen and (max-height: 400px), screen and (orientation: horizontal) {
+    button {
+        height: 32px;
+    }
+}
