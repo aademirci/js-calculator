@@ -20,3 +20,5 @@ Live demo: https://aademirci.github.io/js-calculator/
 
 * aademirci (https://github.com/aademirci) - Design and coding (HTML, CSS, JavaScript)
 * ELal3k (https://github.com/ELal3k) - Brainstorming and testing
+
+Special thanks to monura for further testing and finding bugs.
