@@ -7,6 +7,7 @@ const equal = 'equal'
 let currentNumber = '0'
 let nextNumber = '0'
 const operationArray = [0]
+const allButtons = document.querySelectorAll('button')
 const buttonNumber = document.querySelectorAll('#numbers button')
 const buttonOperate = document.querySelectorAll('#operations button')
 const buttonEqual = document.querySelector('#equal')
@@ -153,12 +154,10 @@ const assignNumber = (n) => {
 
 buttonNumber.forEach(btn => btn.addEventListener('click', () => {
     screen.textContent = assignNumber(btn.textContent)
-    console.log(...operationArray)
 }))
 
 buttonOperate.forEach(btn => btn.addEventListener('click', () => {
     operationTrigger(btn.id)
-    console.log(...operationArray)
 }))
 
 buttonEscape.addEventListener('click', () => {
@@ -168,6 +167,10 @@ buttonEscape.addEventListener('click', () => {
 buttonDelete.addEventListener('click', () => {
     backSpace()
 })
+
+allButtons.forEach(btn => btn.addEventListener('click', () => {
+    btn.blur()
+}))
 
 document.onkeyup = e => {
     switch ( e.key ) {
