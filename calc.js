@@ -182,9 +182,11 @@ document.onkeyup = e => {
         case '9':
         case '0':
         case '.':
-            screen.textContent = assignNumber(e.key)
+        case ',':
+            const key = e.key === ',' ? '.' : e.key
+            screen.textContent = assignNumber(key)
             buttonNumber.forEach(btn => {
-                btn.textContent === e.key && btn.classList.add('active')
+                btn.textContent === key && btn.classList.add('active')
                 setInterval(() => {
                     btn.classList.remove('active')
                 }, 100)
