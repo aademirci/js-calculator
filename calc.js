@@ -24,7 +24,8 @@ const fixFloat = (numberFirst, numberSecond, operation) => {
 
     if ( operation === add ) return parseFloat((numberFirst + numberSecond).toFixed(n - 2))
     else if ( operation === subtract ) return parseFloat((numberFirst - numberSecond).toFixed(n - 2))
-    else return parseFloat((numberFirst * numberSecond).toFixed(a + b))
+    else if ( operation === multiply ) return parseFloat((numberFirst * numberSecond).toFixed(a + b))
+    else if ( operation === divide ) return parseFloat((numberFirst / numberSecond).toFixed(a + b))
 }
 
 const reset = () => {
@@ -112,7 +113,11 @@ const operate = (operationArray) => {
                 operationArray.pop()
                 break
             }
-            result = numberFirst / numberSecond
+            if( isFloat(numberFirst) || isFloat(numberSecond) ) {
+                result = fixFloat(numberFirst, numberSecond, divide)
+            } else {
+                result = (numberFirst / numberSecond)
+            }
             break
         case equal:
             result = numberFirst
