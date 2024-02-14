@@ -129,12 +129,12 @@ const assignNumber = (n) => {
 
     if ( currentNumber.length === Number.MAX_SAFE_INTEGER.toString().length ) return currentNumber
 
-    if ( currentNumber === '0' ) {
-        currentNumber = n
+    if ( n === '.' && currentNumber === '0' ) {
+        currentNumber = '0' + n
     } else if ( n === '.' && currentNumber.includes('.')) {
         return currentNumber
-    } else if ( n === '.' && currentNumber === 0 ) {
-        currentNumber = '0' + n
+    } else if ( currentNumber === '0' ) {
+        currentNumber = n
     } else {
         currentNumber = currentNumber + n
     }
